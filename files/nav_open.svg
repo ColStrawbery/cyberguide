@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Burger" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 46.94 46.94">
+  <defs>
+    <style>
+      .cls-1 {
+        stroke: #600606;
+      }
+
+      .cls-1, .cls-2 {
+        fill: none;
+        stroke-miterlimit: 10;
+        stroke-width: 2px;
+      }
+
+      .cls-2 {
+        stroke: #c9a9a9;
+      }
+    </style>
+  </defs>
+  <circle class="cls-2" cx="23.47" cy="23.47" r="22.47"/>
+  <line class="cls-1" x1="13.75" y1="23.69" x2="33.2" y2="23.69"/>
+  <line class="cls-1" x1="13.75" y1="15.79" x2="33.2" y2="15.79"/>
+  <line class="cls-1" x1="13.75" y1="31.59" x2="33.2" y2="31.59"/>
+</svg>

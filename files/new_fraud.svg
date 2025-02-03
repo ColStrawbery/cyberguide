@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Fraud" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 392.36 235.22">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #d0342c;
+        opacity: .03;
+      }
+
+      .cls-2 {
+        stroke: #f73e3e;
+      }
+
+      .cls-2, .cls-3, .cls-4 {
+        fill: none;
+        stroke-miterlimit: 10;
+        stroke-width: 2px;
+      }
+
+      .cls-3 {
+        stroke: #600606;
+      }
+
+      .cls-4 {
+        stroke: #c9a9a9;
+      }
+    </style>
+  </defs>
+  <circle class="cls-1" cx="240.05" cy="126.35" r="49.5"/>
+  <line class="cls-4" x1="134.55" y1="71.85" x2="241.55" y2="71.85"/>
+  <line class="cls-4" x1="134.55" y1="84.85" x2="241.55" y2="84.85"/>
+  <rect class="cls-4" x="145.14" y="110.85" width="36.4" height="11"/>
+  <path class="cls-3" d="M224.55,134.85h-85.38c-2.55,0-4.62-2.07-4.62-4.62v-64.75c0-2.55,2.07-4.62,4.62-4.62h96.75c2.55,0,4.62,2.07,4.62,4.62v55.38"/>
+  <rect class="cls-2" x="224.55" y="120.85" width="33" height="23"/>
+  <path class="cls-2" d="M251.76,110.23c0-6.35-5.85-11.33-12.46-9.84-4.61,1.04-7.76,5.35-7.76,10.08v9.39"/>
+</svg>

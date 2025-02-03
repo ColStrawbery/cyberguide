@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Datenlecks" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 392.36 235.22">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #d0342c;
+        opacity: .03;
+      }
+
+      .cls-2 {
+        stroke: #f73e3e;
+      }
+
+      .cls-2, .cls-3, .cls-4 {
+        fill: none;
+        stroke-miterlimit: 10;
+        stroke-width: 2px;
+      }
+
+      .cls-3 {
+        stroke: #600606;
+      }
+
+      .cls-4 {
+        stroke: #c9a9a9;
+      }
+    </style>
+  </defs>
+  <circle class="cls-1" cx="196.05" cy="115.85" r="55"/>
+  <ellipse class="cls-4" cx="196.55" cy="60.35" rx="30.5" ry="5.5"/>
+  <path class="cls-4" d="M226.83,89.5c0,3.1-13.56,5.61-30.28,5.61s-30.28-2.51-30.28-5.61"/>
+  <path class="cls-4" d="M185.49,125.02c-11.25-.82-19.22-2.85-19.22-5.22"/>
+  <path class="cls-4" d="M226.83,119.8c0,2.32-7.61,4.31-18.47,5.16"/>
+  <line class="cls-4" x1="166.05" y1="60.85" x2="166.05" y2="120.85"/>
+  <line class="cls-4" x1="227.05" y1="60.85" x2="227.05" y2="120.85"/>
+  <g>
+    <line class="cls-3" x1="189.81" y1="104.38" x2="203.28" y2="117.84"/>
+    <line class="cls-3" x1="189.81" y1="117.84" x2="203.28" y2="104.38"/>
+  </g>
+  <path class="cls-2" d="M206.67,139.95c0-5.59-10.12-18.02-10.12-18.02,0,0-10.12,12.43-10.12,18.02s4.53,10.12,10.12,10.12,10.12-4.53,10.12-10.12Z"/>
+</svg>

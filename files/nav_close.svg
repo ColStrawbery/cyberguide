@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 46.94 46.94">
+  <defs>
+    <style>
+      .cls-1 {
+        stroke: #600606;
+      }
+
+      .cls-1, .cls-2 {
+        fill: none;
+        stroke-miterlimit: 10;
+        stroke-width: 2px;
+      }
+
+      .cls-2 {
+        stroke: #c9a9a9;
+      }
+    </style>
+  </defs>
+  <circle class="cls-2" cx="23.47" cy="23.47" r="22.47"/>
+  <line class="cls-1" x1="15.84" y1="16.06" x2="31.1" y2="31.32"/>
+  <line class="cls-1" x1="31.1" y1="16.06" x2="15.84" y2="31.32"/>
+</svg>
