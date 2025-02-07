@@ -5,13 +5,14 @@
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline';">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cyber-Guide  |  BUND</title>
+    <title>Cyberguide | Bundesinitiative für Cybersicherheit</title>
 
     <link rel="stylesheet" href="styles.css" media="screen and (min-width: 769px)">
     <link rel="stylesheet" href="styles-mobile.css" media="screen and (max-width: 768px)">
 
-    <link rel="icon" type="image/x-icon" href="/files/germany-logo-wifi.svg">
-
+    <link rel="icon" type="image/x-icon" href="/files/germany-logo-wifi.svg" media="(prefers-color-scheme: light)">
+    <link rel="icon" type="image/x-icon" href="/files/germany-logo-wifi-darkmode.svg" media="(prefers-color-scheme: dark)">
+    <link rel="preload" href="/files/Inter.ttf" as="font" type="font/ttf" crossorigin>
 </head>
 
 
@@ -21,54 +22,52 @@
     <div class="white-bg">
         <a id="top"></a>
 
+        <section class="info-section info-section--faq">
+            <div class="info-context">
+                <h1 class="info-header">HÄUFIG<br>GESTELLTE<br>FRAGEN</h1>
+                <p class="header-p">Hier finden Sie Antworten auf die am häufigsten gestellten Fragen rund um das Thema Cybercrime und wie Sie sich effektiv gegen Bedrohungen im Internet schützen können.</p>
+            </div>
+        </section>
+
         <section class="main-section">
             <section class="faq-section">
-                <!-- Header Section -->
-                <section class="faq-header">
-                    <h1>Häufig gestellte Fragen</h1>
-                    <p class="header-p">Hier finden Sie Antworten auf die am häufigsten gestellten Fragen rund um das Thema Cybercrime und wie Sie sich effektiv gegen Bedrohungen im Internet schützen können.</p>
-                </section>
+
                 <div class="faq-container">
                     <!-- FAQ Items -->
                     <section class="faq-content">
                         <h2 class="accordion-header">Allgemeines</h2>
-                        <button class="faq-accordion">
-                            Was ist Cyberkriminalität?
-                            <span class="accordion-icon"></span>
-                        </button>
-                        <div class="faq-panel">
-                            <p>Cyberkriminalität umfasst alle illegalen Aktivitäten, die mithilfe von Computern, Netzwerken oder dem Internet durchgeführt werden. Dazu gehören Betrug, Datendiebstahl, Identitätsdiebstahl und viele andere Verbrechen.</p>
-                        </div>
                     
-                        <button class="faq-accordion">
-                            Warum ist Cybercrime eine Gefahr für die Allgemeinheit?
-                            <span class="accordion-icon"></span>
-                        </button>
-                        <div class="faq-panel">
-                            <p>
-                                - Überprüfen Sie die Absenderadresse genau.<br>
-                                - Klicken Sie niemals auf verdächtige Links.<br>
-                                - Geben Sie keine persönlichen Daten auf unsicheren Websites ein.<br>
-                                - Nutzen Sie Antivirenprogramme und halten Sie Ihre Software aktuell.
-                            </p>
-                        </div>
+                        <p class="topic-text-side" data-target="101234">
+                            Was ist Cybercrime? <span class="topic-arrow">&darr;</span>
+                        </p>
+                        <p class="topic-text expandable" id="101234">
+                            Cybercrime bezeichnet Straftaten, die mithilfe von Computern, Netzwerken oder dem Internet begangen werden. Dazu gehören Betrug, Identitätsdiebstahl, Hacking und Malware-Verbreitung.
+                        </p>
                     
-                        <button class="faq-accordion">
-                            Welche Arten von Cybercrime gibt es?
-                            <span class="accordion-icon"></span>
-                        </button>
-                        <div class="faq-panel">
-                            <p>Ein starkes Passwort erschwert es Angreifern, Zugriff auf Ihre Konten zu erhalten. Verwenden Sie lange Passwörter mit einer Mischung aus Buchstaben, Zahlen und Sonderzeichen.</p>
-                        </div>
+                        <p class="topic-text-side" data-target="101235">
+                            Welche Arten von Cybercrime gibt es? <span class="topic-arrow">&darr;</span>
+                        </p>
+                        <p class="topic-text expandable" id="101235">
+                            Cybercrime umfasst eine Vielzahl von Straftaten, darunter Hacking, Phishing, Malware-Verbreitung und Social Engineering. Zu den gängigsten Formen gehören auch DDoS-Angriffe (Distributed Denial of Service), bei denen Online-Dienste lahmgelegt werden, sowie Identitätsdiebstahl, bei dem persönliche Informationen gestohlen und missbraucht werden.
+                        </p>
                     
-                        <button class="faq-accordion">
-                            Wie kann ich erkennen, dass ich Opfer von Cybercrime geworden bin?
-                            <span class="accordion-icon"></span>
-                        </button>
-                        <div class="faq-panel">
-                            <p>Ändern Sie sofort alle betroffenen Passwörter. Informieren Sie Ihre Bank, falls finanzielle Informationen betroffen sind, und überwachen Sie Ihre Konten auf verdächtige Aktivitäten.</p>
-                        </div>
+                        <p class="topic-text-side" data-target="101236">
+                            Wer ist von Cybercrime betroffen? <span class="topic-arrow">&darr;</span>
+                        </p>
+                        <p class="topic-text expandable" id="101236">
+                            Jeder kann Opfer von Cybercrime werden – von Privatpersonen über Unternehmen bis hin zu Behörden. Besonders gefährdet sind jedoch Nutzer mit schwachen Passwörtern, ungeschützten Netzwerken oder wenig Erfahrung im Umgang mit Online-Sicherheit. Auch Menschen, die häufig in sozialen Medien aktiv sind, laufen Gefahr, Opfer von Angriffen wie Phishing oder Identitätsdiebstahl zu werden.
+                        </p>
+                    
+                        <p class="topic-text-side" data-target="101237">
+                            Was ist Cyber-Hygiene? <span class="topic-arrow">&darr;</span>
+                        </p>
+                        <p class="topic-text expandable" id="101237">
+                            Cyber-Hygiene bezieht sich auf eine Reihe von Verhaltensweisen und Praktiken, die dazu beitragen, die Sicherheit von Geräten und Online-Konten zu gewährleisten. Dazu gehört, Software regelmäßig zu aktualisieren, sichere Passwörter zu verwenden, verdächtige E-Mails zu ignorieren und auf Phishing-Angriffe zu achten. Genauso wichtig ist es, Antiviren-Programme zu installieren und diese stets auf dem neuesten Stand zu halten.
+                            Darüber hinaus ist es entscheidend, stets informiert zu bleiben, da sich Cybercrime kontinuierlich weiterentwickelt. Neue Bedrohungen und Angriffsmethoden entstehen ständig, weshalb es wichtig ist, regelmäßig über aktuelle Sicherheitslücken und Schutzmaßnahmen Bescheid zu wissen. Nur so kann man mit den sich ständig ändernden Risiken Schritt halten und seine Geräte und Daten effektiv schützen.
+                        </p>
+                    
                     </section>
+                    
                 </div>
 
 
@@ -81,72 +80,97 @@
                     <!-- FAQ Items -->
                     <section class="faq-content">
 
-                        <p class="topic-text-side" data-target="why-it-works">
-                            Warum sind starke Passwörter wichtig, und wie wähle ich eines? <span class="topic-arrow">🡳</span>
+                        <p class="topic-text-side" data-target="1031234">
+                            Warum sind starke Passwörter wichtig? <span class="topic-arrow">&darr;</span>
                         </p>
-                        <p class="topic-text expandable" id="why-it-works">
-                            Social Engineering basiert auf einer gezielten Manipulation menschlicher Psychologie. Cyberkriminelle nutzen tiefgreifende psychologische Mechanismen aus, um das Vertrauen und die Gutgläubigkeit ihrer Opfer auszunutzen. Sie erzeugen künstliche Drucksituationen, spielen mit Emotionen wie Angst, Hilfsbereitschaft oder Neugier und täuschen Vertrautheit oder Autorität vor. Menschen reagieren in solchen Situationen oft reflexartig und unterdrücken ihre kritische Wahrnehmung.
+                        <p class="topic-text expandable" id="1031234">
+                            Starke Passwörter verhindern, dass Angreifer einfach auf Ihre Konten zugreifen können. Ein Passwort, das aus einer Kombination von Groß- und Kleinbuchstaben, Zahlen und Sonderzeichen besteht, ist viel schwerer zu erraten oder zu knacken. Ein schwaches Passwort, wie „123456“, ist leicht für Cyberkriminelle zu erraten, während ein starkes Passwort die Sicherheit Ihrer Daten deutlich erhöht.
                         </p>
-
-                        <p class="topic-text-side" data-target="why-it-works">
-                            Welche Maßnahmen helfen mir, online sicherer zu sein? <span class="topic-arrow">🡳</span>
-                        </p>
-                        <p class="topic-text expandable" id="why-it-works">
-                            Social Engineering basiert auf einer gezielten Manipulation menschlicher Psychologie. Cyberkriminelle nutzen tiefgreifende psychologische Mechanismen aus, um das Vertrauen und die Gutgläubigkeit ihrer Opfer auszunutzen. Sie erzeugen künstliche Drucksituationen, spielen mit Emotionen wie Angst, Hilfsbereitschaft oder Neugier und täuschen Vertrautheit oder Autorität vor. Menschen reagieren in solchen Situationen oft reflexartig und unterdrücken ihre kritische Wahrnehmung.
-                        </p>
-
-
-                        <button class="faq-accordion">
-                            Welche Maßnahmen helfen mir, online sicherer zu sein?
-                            <span class="accordion-icon"></span>
-                        </button>
-                        <div class="faq-panel">
-                            <p>Cyberkriminalität umfasst alle illegalen Aktivitäten, die mithilfe von Computern, Netzwerken oder dem Internet durchgeführt werden. Dazu gehören Betrug, Datendiebstahl, Identitätsdiebstahl und viele andere Verbrechen.</p>
-                        </div>
                     
-                        <button class="faq-accordion">
-                            Warum sind starke Passwörter wichtig, und wie wähle ich eines?
-                            <span class="accordion-icon"></span>
-                        </button>
-                        <div class="faq-panel">
-                            <p class="faq-text">Ein starkes Passwort erschwert es Angreifern, Zugriff auf Ihre Konten zu erhalten. <br>Verwenden Sie lange Passwörter aus Buchstaben, Zahlen und Sonderzeichen.</p>
-                            <p class="faq-source">Quellen</p>
-                        </div>
-
-                        <button class="faq-accordion">
-                            Was ist Multi-Faktor-Authentifizierung, und warum sollte ich sie nutzen?
-                            <span class="accordion-icon"></span>
-                        </button>
-                        <div class="faq-panel">
-                            <p class="faq-text">Ein starkes Passwort erschwert es Angreifern, Zugriff auf Ihre Konten zu erhalten. <br>Verwenden Sie lange Passwörter aus Buchstaben, Zahlen und Sonderzeichen.</p>
-                            <p class="faq-source">Quellen</p>
-                        </div>
+                        <p class="topic-text-side" data-target="102345">
+                            Wie wähle ich ein sicheres Passwort? <span class="topic-arrow">&darr;</span>
+                        </p>
+                        <p class="topic-text expandable" id="102345">
+                            Ein sicheres Passwort sollte mindestens 12 Zeichen lang sein und eine Mischung aus Groß- und Kleinbuchstaben, Zahlen sowie Sonderzeichen enthalten. Vermeiden Sie persönliche Informationen wie Namen oder Geburtsdaten. Es ist ratsam, für jedes Konto ein einzigartiges Passwort zu verwenden und Passwörter regelmäßig zu ändern.
+                        </p>
                     
-                        <button class="faq-accordion">
-                            Was ist Multi-Faktor-Authentifizierung, und warum sollte ich sie nutzen?
-                            <span class="accordion-icon"></span>
-                        </button>
-                        <div class="faq-panel">
-                            <p>Ein starkes Passwort erschwert es Angreifern, Zugriff auf Ihre Konten zu erhalten. Verwenden Sie lange Passwörter mit einer Mischung aus Buchstaben, Zahlen und Sonderzeichen.</p>
-                        </div>
+                        <p class="topic-text-side" data-target="103456">
+                            Was ist Zwei-Faktor-Authentifizierung (2FA)? <span class="topic-arrow">&darr;</span>
+                        </p>
+                        <p class="topic-text expandable" id="103456">
+                            Die Zwei-Faktor-Authentifizierung (2FA) fügt eine zusätzliche Sicherheitsebene hinzu, indem sie neben dem Passwort einen zweiten Bestätigungsschritt erfordert. Dies kann ein Code sein, der an Ihr Handy gesendet wird, oder ein Fingerabdruck. Selbst wenn jemand Ihr Passwort kennt, benötigt er auch den zweiten Faktor, um auf Ihr Konto zuzugreifen.
+                        </p>
                     
-                        <button class="faq-accordion">
-                            Warum sind Software-Updates für meine Sicherheit relevant?
-                            <span class="accordion-icon"></span>
-                        </button>
-                        <div class="faq-panel">
-                            <p>Ändern Sie sofort alle betroffenen Passwörter. Informieren Sie Ihre Bank, falls finanzielle Informationen betroffen sind, und überwachen Sie Ihre Konten auf verdächtige Aktivitäten.</p>
-                        </div>
-
-                        <button class="faq-accordion">
-                            Wie kann ich mein WLAN sicherer machen?
-                            <span class="accordion-icon"></span>
-                        </button>
-                        <div class="faq-panel">
-                            <p>Ändern Sie sofort alle betroffenen Passwörter. Informieren Sie Ihre Bank, falls finanzielle Informationen betroffen sind, und überwachen Sie Ihre Konten auf verdächtige Aktivitäten.</p>
-                        </div>
+                        <p class="topic-text-side" data-target="104567">
+                            Warum sollte ich regelmäßig Software-Updates durchführen? <span class="topic-arrow">&darr;</span>
+                        </p>
+                        <p class="topic-text expandable" id="104567">
+                            Software-Updates beheben häufig Sicherheitslücken, die von Cyberkriminellen ausgenutzt werden könnten. Wenn Sie Ihr Betriebssystem und Ihre Apps regelmäßig aktualisieren, stellen Sie sicher, dass Ihr Gerät vor bekannten Bedrohungen geschützt ist. Viele Malware-Angriffe zielen auf veraltete Software ab, die nicht die neuesten Sicherheitspatches enthält.
+                        </p>
+                    
+                        <p class="topic-text-side" data-target="105678">
+                            Wie kann ich meine Datenverschlüsselung aktivieren? <span class="topic-arrow">&darr;</span>
+                        </p>
+                        <p class="topic-text expandable" id="105678">
+                            Die Aktivierung der Datenverschlüsselung sorgt dafür, dass Ihre Daten auf dem Gerät sicher gespeichert werden, selbst wenn jemand unbefugten Zugriff darauf hat. Bei Windows können Sie beispielsweise die BitLocker-Verschlüsselung aktivieren, während Mac-Nutzer FileVault verwenden können. Verschlüsselte Daten sind nur mit dem richtigen Passwort oder Schlüssel zugänglich, was Ihre Daten vor Diebstahl schützt.
+                        </p>
+                    
                     </section>
+                </div>
+                <div class="faq-container">
+                    <section class="faq-content">
+                        <h2 class="accordion-header">Sicherheitsvorfälle</h2>
+                    
+                        <p class="topic-text-side" data-target="201234">
+                            Was soll ich tun, wenn ich Opfer eines Cyberangriffs geworden bin? <span class="topic-arrow">&darr;</span>
+                        </p>
+                        <p class="topic-text expandable" id="201234">
+                            Wenn Sie glauben, Opfer eines Cyberangriffs geworden zu sein, sollten Sie sofort Ihr Passwort ändern und alle betroffenen Konten sperren. Informieren Sie Ihren Anbieter oder Ihre Bank und melden Sie den Vorfall der Polizei. Dokumentieren Sie alle relevanten Informationen, um mögliche Beweise zu sichern.
+                        </p>
+                    
+                        <p class="topic-text-side" data-target="201235">
+                            Wie erkenne ich, ob meine Daten im Dark Web verkauft werden? <span class="topic-arrow">&darr;</span>
+                        </p>
+                        <p class="topic-text expandable" id="201235">
+                            Ein Hinweis darauf, dass Ihre Daten im Dark Web verkauft werden, kann das plötzliche Auftauchen von unbekannten Aktivitäten in Ihren Bankkonten oder Online-Konten sein. Es gibt auch spezialisierte Dienste, die Sicherheitschecks anbieten, um zu prüfen, ob Ihre persönlichen Daten irgendwo im Dark Web gehandelt werden.
+                        </p>
+                    
+                        <p class="topic-text-side" data-target="201236">
+                            Was sollte ich tun, wenn ich verdächtige E-Mails oder Nachrichten erhalte? <span class="topic-arrow">&darr;</span>
+                        </p>
+                        <p class="topic-text expandable" id="201236">
+                            Wenn Sie eine verdächtige E-Mail oder Nachricht erhalten, klicken Sie auf keine Links und öffnen Sie keine Anhänge. Melden Sie die Nachricht an den entsprechenden Anbieter oder Dienstleister, damit dieser Maßnahmen ergreifen kann. Es empfiehlt sich, den Absender zu überprüfen und die E-Mail-Adresse auf Unstimmigkeiten zu überprüfen.
+                        </p>
+                    
+                        <p class="topic-text-side" data-target="201237">
+                            Was tun, wenn meine Bankdaten gestohlen wurden? <span class="topic-arrow">&darr;</span>
+                        </p>
+                        <p class="topic-text expandable" id="201237">
+                            Wenn Sie den Verdacht haben, dass Ihre Bankdaten gestohlen wurden, sollten Sie sofort Ihre Bank oder Ihr Finanzinstitut kontaktieren, um alle verdächtigen Transaktionen zu blockieren. Ändern Sie alle Passwörter und aktivieren Sie, wenn möglich, eine Zwei-Faktor-Authentifizierung. Außerdem sollten Sie Ihre Bankkarten sperren lassen und gegebenenfalls eine Anzeige bei der Polizei erstatten.
+                        </p>
+                    
+                    </section>
+                </div>
             </section>
+        </section>
+        <section class="main-section">
+            <div class="center">
+                <!-- <h1 class="main-text main-text--right">Hier erfahren Sie mehr über <br>die größten Bedrohungen<br> der Cyberkriminalität.<br></h1> -->
+                <div class="threat-container page-linker">
+                    <div class="threat-grid">
+
+                        <a href="risiko-check.html" class="threat-item linker">
+                            <h2 class="threat-item-headline">Wie sicher<br>bin ich wirklich?</h2>
+                            <p class="threat-link">Zum Risiko-Check&nbsp;&rarr;</p>
+                        </a>
+
+                        <a href="themen.html" class="threat-item linker">
+                            <h2 class="threat-item-headline">Wichtige Risiken <br>und Maßnahmen</h2>
+                            <p class="threat-link">Zu den Themen&nbsp;&rarr;</p>
+                        </a>
+
+                    </div>
+                </div>
         </section>
     </div>
 

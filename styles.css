@@ -14,6 +14,7 @@ html::-webkit-scrollbar {
   --footer: #242222;
   --header-height: clamp(30px, 7vw, 100px); /* Adjust this line */
   --yellow: #fff02a; /* Add this line */
+  --yellowBorder: rgb(255, 227, 144);
   --boldText: #191818; /* Add this line */
   --border2: #f2ecec;
   --pink: #fff0f0;
@@ -61,7 +62,6 @@ body {
   overflow: hidden;
   padding: 0;
   margin: 0;
-  padding-bottom: 200px;
 }
 
 .info-section:hover + .white-bg {
@@ -611,6 +611,13 @@ header.hidden {
   margin-top: calc(var(--header-height) + 50px);
 }
 
+.main-section:last-of-type {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  min-height: 0;
+  height: auto;
+}
+
 .main-text {
   user-select: none;
   font-size: 1.75vw;
@@ -644,6 +651,11 @@ header.hidden {
   padding-bottom: 130px;
 }
 
+.page-linker {
+  padding-bottom: 0;
+  /* margin-top: 30vh; */
+}
+
 .threat-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr); /* Two columns */
@@ -674,6 +686,20 @@ header.hidden {
   cursor: pointer;
 }
 
+.linker {
+  background-color: var(--yellow);
+  border-color: var(--yellowBorder);
+}
+
+.page-linker .threat-grid {
+  gap: 20px;
+}
+
+.linker:hover {
+  background-color: var(--yellow);
+  border-color: var(--footer);
+}
+
 .threat-item h2 {
   font-size: 1.5vw;
   font-weight: 300;
@@ -691,6 +717,8 @@ header.hidden {
  transform: translateY(-1.5vw);
  transition: transform 0.3s ease;
 }
+
+
 
 /* Icon links */
 .topic-icon {
@@ -721,28 +749,23 @@ header.hidden {
   transition: opacity 0.3s ease;
 }
 
+.linker .threat-link {
+  font-weight: 400;
+  color: black;
+}
+
 .threat-item:hover .threat-link {
   opacity: 1;
   transition: opacity 0.3s ease;
 }
 
-.cta-div {
-  max-width: 800px;
-  margin-left: 33vw;
-  padding-bottom: 40px;
-  
+.linker h2 {
+  font-weight: 400;
+  color: var(--boldText);
 }
 
-/*WIE __ BIN ICH ONLINE*/
-.cta-header {
-  user-select: none;
-  animation: fadeInSlide 1s ease forwards;
-  opacity: 0; /* Start fully transparent */
-  font-size: 80pt;
-  line-height: 85%;
-  margin: 0;
-  color: #191919;
-  margin-bottom: 20px;
+.linker .threat-link {
+  color: var(--boldText);
 }
 
 .info-header {
@@ -786,6 +809,8 @@ header.hidden {
 
 .info-section--info:hover {
   cursor: pointer;
+  border-color: var(--footer);
+  transition: all 0.3s ease;
 }
 
 .arrow {
@@ -807,12 +832,12 @@ header.hidden {
 }
 
 .info-section {
-  border: 2px solid rgb(255, 227, 144);
+  border: 2px solid var(--yellowBorder);
   margin: 0 auto;
   width: 53vw;
   height: auto;
   min-height: 30vw;
-  background-color: #fff02a;
+  background-color: var(--yellow);
   margin-top: 120px;
   margin-bottom: 70px;
   position: relative; /* Add this */
@@ -820,7 +845,6 @@ header.hidden {
   padding: 0;
   margin-left: 20vw;
   margin-top: calc(var(--header-height) + 8vh);
-  cursor: default;
 }
 
 
@@ -850,6 +874,21 @@ header.hidden {
 .info-present {
   transform: translateY(3vw);
   transition: transform 0.3s ease;
+}
+
+.header-p {
+  font-size: 1.1vw; 
+  color: var(--text);
+  max-width: 75ch;
+  font-weight: 400;
+  margin-bottom: 1.5vw; /* Adjusted to use vw */
+  line-height: 1.5; /* Improved readability */
+}
+
+.info-section--hilfe2 .info-present, .info-section--themen .header-p, .info-section--faq .header-p, .header-p--quiz2 {
+  transform: translateY(0);
+  margin: 0;
+  margin-top: 1vh;
 }
 
 .info-section--info:hover .info-present {
@@ -910,27 +949,36 @@ header.hidden {
   background-color: rgb(255, 240, 240);
   border-color: rgb(209, 155, 155);
   transition: all 0.3s ease;
-  cursor: pointer;
-  margin-bottom: 0;
+  margin-bottom: 20vh;
 }
 
-.info-section--hilfe .info-header {
+.info-section--hilfe2 {
+  background-color: rgb(255, 240, 240);
+  border-color: rgb(209, 155, 155);
+  transition: all 0.3s ease;
+  animation: warningPulse 3s ease-in-out infinite;
+}
+
+
+@keyframes warningPulse {
+  0%, 100% {
+      background-color: rgb(255, 240, 240);
+      border-color: rgb(209, 155, 155);
+  }
+  50% {
+      background-color: rgb(248, 212, 212);
+      border-color: var(--red);
+  }
+}
+
+.info-section--hilfe .info-header, .info-section--hilfe2 .info-header {
   color: var(--red);
 }
-
-
 
 .info-section--hilfe2 {
   background-color: white;
   border-color: rgb(242, 236, 236);
   transition: all 0.3s ease;
-  cursor: pointer;
-}
-
-.info-section--hilfe:hover {
-  border-color: var(--red);
-  transition: all 0.3s ease;
-  background-color: rgb(248, 212, 212);
 }
 
 .info-section--quiz:hover {
@@ -939,11 +987,12 @@ header.hidden {
   background-color: rgb(255, 253, 253);
 }
 
-
 .header-p--quiz, .header-p--hilfe { /*the quiz*/
   transform: translateY(4vw);
   transition: transform 0.3s ease;
 }
+
+
 
 .info-section--quiz:hover .header-p--quiz, .info-section--hilfe:hover .header-p--hilfe {
   transform: translateY(1vw);
@@ -971,11 +1020,12 @@ header.hidden {
 
 .info-section--info {
   clip-path: inset(0);
+  transition: all 0.3s ease;
+
 }
 
-.info-section--themen {
-  background-color: white;
-  border-color: rgb(242, 236, 236);
+.info-section--hilfe:hover {
+  cursor: pointer;
 }
 
 .info-section--threat {
@@ -989,14 +1039,7 @@ header.hidden {
     border-color: rgb(242, 236, 236);
 }
 
-.header-p {
-    font-size: 1.1vw; 
-    color: var(--text);
-    max-width: 75ch;
-    font-weight: 400;
-    margin-bottom: 1.5vw; /* Adjusted to use vw */
-    line-height: 1.5; /* Improved readability */
-}
+
 
 
 
@@ -1008,12 +1051,16 @@ header.hidden {
 
 
 
+.quiz, .quiz-progress-bar, .results {
+  display: none;
+  pointer-events: none; /* Prevent any clicks or interactions */
 
+}
 
 .quiz-container {
   border: solid 2px var(--border2);
   width: 53vw;
-  height: 530px;
+  height: 30vw;
   position: absolute;    
   margin-left: 20vw; /* Center horizontally */
   margin-top: calc(var(--header-height) + 8vh);
@@ -1058,7 +1105,7 @@ header.hidden {
 }
 
 .quiz-answer-container {
-  width: 70%;
+  width: 80%;
   margin-left: 5.5vw;
   margin-right: auto;
 }
@@ -1067,6 +1114,11 @@ header.hidden {
   height: 100%;
   transition: width 0.5s ease-in-out;
   background-color: var(--red);
+}
+
+.repeat-quiz-btn-mobile {
+  visibility: hidden;
+  display: none;
 }
 
 .quiz-nav {
@@ -1118,7 +1170,7 @@ header.hidden {
 }
 
 /*Checkbox type*/ 
-.checkbox-group, .button-group {
+.button-group {
   display: flex;
   flex-direction: column; /* Stack elements vertically */
   gap: 0.7rem; /* Spacing between buttons */
@@ -1127,20 +1179,9 @@ header.hidden {
   margin-left: 0;
 }
 
-.checkbox-option input[type="checkbox"] {
-  position: absolute;
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.checkbox-option.checked {
-  background-color: rgb(255, 240, 240);
-  border: solid 1px var(--red);
-}
 
 
-.checkbox-option, .answer-button {
+.answer-button {
   padding: 0.85rem 1rem;
   margin: 0;
   border: 1px solid var(--border);
@@ -1154,12 +1195,21 @@ header.hidden {
   border-radius: 5px;
 }
 
-.result-tips {
-  background-color: red;
+.tips {
+  background-color: white;
+  border-radius: 5px;
   margin-left: 20vw;
   margin-top: 5vw;
   width: 53vw;
-  height: 500px;
+  height: auto;
+  display: none;           /* Initially hidden */
+  opacity: 0;              /* Fully transparent */
+  transition: opacity 1s;  /* Smooth transition for opacity */
+}
+
+.tips-div {
+  padding: 3vw;
+  overflow: visible;
 }
 
 /* Hover effect only when not checked */
@@ -1368,7 +1418,6 @@ header.hidden {
   font-weight: 650;
   border-bottom: solid 3px var(--red);
   border-left: solid 3px var(--red);
-
 }
 
 
@@ -1505,6 +1554,14 @@ header.hidden {
   /* background-color: rebeccapurple; */
 }
 
+.source-box {
+  width: 53vw;
+  height: 50px;
+  margin-left: 20vw;
+  display: flex;
+  justify-content: space-between;
+}
+
 .topic-above-header {
   font-weight: 500;
   font-size: 1.2vw;
@@ -1527,6 +1584,10 @@ header.hidden {
   margin: 0;
 }
 
+.mobile-br {
+  display: none;
+  visibility: hidden;
+}
 
 
 /* Standardstil für die Buttons */
@@ -1544,6 +1605,7 @@ header.hidden {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background-color: rgba(249, 248, 248, 0.547);  
 }
 
 .always-expanded {
@@ -1566,7 +1628,7 @@ header.hidden {
   overflow: hidden;
   transition: all 0.3s ease; /* Smooth transition */
   padding: 0 15px; /* Kein Padding, wenn eingeklappt */
-  
+  line-height: 1.5;
 }
 
 /* Wenn ein Abschnitt erweitert ist */
@@ -1574,7 +1636,6 @@ header.hidden {
   max-height: 500px; /* Oder ein ausreichend hoher Wert */
   padding: 10px 15px; /* Padding hinzufügen, wenn ausgeklappt */
   margin-bottom: 40px;
-  line-height: 1.5;
   /* background-color: red; */
 }
 
@@ -1585,7 +1646,7 @@ header.hidden {
 .topic-text-side .topic-arrow {
   font-size: 1vw;
   transition: all 0.3s ease;
-  color: var(--border2);
+  color: rgba(231, 92, 92, 0.274);
 }
 
 .topic-text-side:hover .topic-arrow {
@@ -1599,14 +1660,11 @@ header.hidden {
 }
 
 .topic-source {
-  padding: 0;
-  margin: 0;
+  padding: 5px;
   color: rgb(128, 128, 128);
   font-size: 0.9vw;
-  margin-top: 1vw;
-  position: absolute;
-  bottom: -2.2vw;
-  right: 0vw;
+  border: none;
+  background-color: var(--offWhite);
   /* background-color: red; */
 }
 
@@ -1617,12 +1675,10 @@ header.hidden {
 }
 
 .topic-source-content {
-  width: 45vw;
+  width: auto;
   height: 0;
   opacity: 0;
-  padding-bottom: 20px;
   user-select: none;
-  margin-left: 20vw;
   color: rgb(128, 128, 128);
   font-size: 0.9vw;
   transition: all 0.5s ease;  
@@ -1637,15 +1693,15 @@ header.hidden {
 }
 
 .topic-source-content-active {
-  height: 50px;
+  height: 100%;
   opacity: 1;
-  padding-bottom: 20px;
   user-select: text;
-  margin-left: 20vw;
   color: rgb(128, 128, 128);
   font-size: 0.9vw;
   transition: all 0.5s ease;  
 }
+
+
 
 .topic-source:hover {
   cursor: pointer;
@@ -1829,4 +1885,28 @@ header.hidden {
 
 .banner-close:hover {
   color: #ff4d4d; /* Rotes X beim Hover */
+}
+
+.info-section--themen {
+  background-color: var(--yellow);
+  border-color: var(--yellowBorder);
+  margin-bottom: 0;
+}
+
+.risiko-check-tip {
+  margin-bottom: 6vh;
+  line-height: 1.6;
+}
+
+.risiko-check-tip:last-of-type {
+  margin-bottom: 2vh;
+}
+
+.topic-text a {
+  color: var(--red);
+}
+
+.quiz-nav-mobile {
+  display: none;
+  user-select: none;
 }

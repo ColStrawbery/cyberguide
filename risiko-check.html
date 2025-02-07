@@ -5,14 +5,26 @@
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline';">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cyberguide | BUND</title>
+    <title>Cyberguide | Bundesinitiative für Cybersicherheit</title>
 
     <link rel="stylesheet" href="styles.css" media="screen and (min-width: 769px)">
     <link rel="stylesheet" href="styles-mobile.css" media="screen and (max-width: 768px)">
 
-    <link rel="icon" type="image/x-icon" href="/files/germany-logo-wifi.svg">
-
+    <link rel="icon" type="image/x-icon" href="/files/germany-logo-wifi.svg" media="(prefers-color-scheme: light)">
+    <link rel="icon" type="image/x-icon" href="/files/germany-logo-wifi-darkmode.svg" media="(prefers-color-scheme: dark)">
+    <link rel="preload" href="/files/Inter.ttf" as="font" type="font/ttf" crossorigin>
+    <script>
+        if (window.innerWidth > 768) { // Adjust 768px to the desired mobile breakpoint
+          // Needed to fix color flicker on non-mobile devices
+          document.write(!document.cookie.includes('introSeen=') ? 
+            '<style>.quiz-container { background-color: var(--yellow); }</style>' : 
+            '<style>.quiz-container { background-color: white; }</style>'
+          );
+        }
+      </script>
+      
 </head>
+
 
 
 
@@ -21,9 +33,9 @@
     <div class="white-bg">
         <a id="top"></a>
 
-        <div class="quiz-container">
+        <div class="quiz-container" style="visibility: none;">
 
-            <div class="quiz-progress-bar">
+            <div id="progress-bar" class="quiz-progress-bar">
                 <div class="quiz-progress-fill" style="width: 0%"></div>
             </div>
 
@@ -44,16 +56,47 @@
                     <div id="skala-fill" class="skala-fill"></div>
                 </div>
                 <div id="recommendations" class="recommendations"></div>
-                <p class="hilfe-link-2">Zu ihrer Analyse 🡻</p>
+                <p class="hilfe-link-2">Zu ihrer Analyse&nbsp;&darr;</p>
                 <div class="repeat-quiz-btn">
                     <button class="btn" onclick="restartQuiz()">Quiz wiederholen</button>
                 </div>
             </div>
         </div>
 
-        <div class="result-tips">
+        <div id="quiz-nav-mobile" class="quiz-nav-mobile">
+            <div class="pusher">
+                <button class="btn" id="prevBtn-mobile" onclick="previousQuestion()" disabled>Zurück</button>
+                <button class="btn" id="nextBtn-mobile" onclick="nextQuestion()" disabled>Weiter</button>
+            </div>
+        </div>
+
+        <div id="repeat-quiz-btn-mobile" class="repeat-quiz-btn-mobile" style="display: none;">
+            <button class="btn" onclick="restartQuiz()">Quiz wiederholen</button>
+        </div>
+
+        <div id="tips" class="tips">
 
         </div>
+
+        <section class="main-section">
+            <div class="center">
+                <!-- <h1 class="main-text main-text--right">Hier erfahren Sie mehr über <br>die größten Bedrohungen<br> der Cyberkriminalität.<br></h1> -->
+                <div class="threat-container page-linker">
+                    <div class="threat-grid">
+
+                        <a href="themen.html" class="threat-item linker">
+                            <h2 class="threat-item-headline">Wichtige Risiken <br>und Maßnahmen</h2>
+                            <p class="threat-link">Zu den Themen&nbsp;&rarr;</p>
+                        </a>
+
+                        <a href="FAQ.html" class="threat-item linker">
+                            <h2 class="threat-item-headline">Ich habe<br>noch Fragen</h2>
+                            <p class="threat-link">Zum FAQ&nbsp;&rarr;</p>
+                        </a>
+
+                    </div>
+                </div>
+        </section>
 
     </div>
 

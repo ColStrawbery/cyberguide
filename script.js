@@ -2,9 +2,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     const navItems = document.querySelectorAll('.nav-item');
     const currentPage = window.location.pathname.split('/').pop().replace('.html', '').toLowerCase(); // Normalize path to lowercase
-  
-    // console.log("Current Page:", currentPage); // Check for debugging
-  
+    
     navItems.forEach(item => {
         const link = item.querySelector('a');
         const linkHref = link.getAttribute('href').replace('.html', '').toLowerCase(); // Normalize link path to lowercase
@@ -12,34 +10,39 @@ document.addEventListener("DOMContentLoaded", function () {
         // Match the current page with the link
         if (linkHref === currentPage || (linkHref === 'start' && currentPage === 'index')) {
             item.classList.add('active');
-            // console.log("Active page added for:", link.getAttribute('href'));
         }
     });
   });
   
-
+  // Header hide/show logic
   document.addEventListener('DOMContentLoaded', function () {
     const header = document.getElementById('header');
     let lastScrollPosition = 0;
+    let scrollThreshold = 10;  // Minimum scroll distance to trigger hide/show
+    let topThreshold = 50;    // Larger threshold at the top of the page
 
-
-    // Handle header and accessibility options on scroll
     function handleScroll() {
         const currentScrollPosition = window.scrollY;
+        const scrollDifference = Math.abs(currentScrollPosition - lastScrollPosition);
 
         // Disable hiding on mobile (screen width <= 768px)
         if (window.innerWidth > 768) {
-            if (currentScrollPosition > lastScrollPosition) {
-                // Scrolling down
-                header.classList.add('hidden');
-            } else {
-                // Scrolling up
-                header.classList.remove('hidden');
+            // Use different thresholds based on scroll position
+            const activeThreshold = currentScrollPosition < 200 ? topThreshold : scrollThreshold;
+
+            if (scrollDifference > activeThreshold) {
+                if (currentScrollPosition > lastScrollPosition) {
+                    // Scrolling down
+                    header.classList.add('hidden');
+                } else {
+                    // Scrolling up
+                    header.classList.remove('hidden');
+                }
+                
+                // Update last scroll position only when threshold is exceeded
+                lastScrollPosition = currentScrollPosition;
             }
         }
-
-        // Update last scroll position
-        lastScrollPosition = currentScrollPosition;
     }
 
     window.addEventListener('scroll', handleScroll);
@@ -263,7 +266,7 @@ const questions = [
             { text: "Nur Kleinbuchstaben.", score: 3 },
             { text: "Klein- und Großbuchstaben.", score: 2 },
             { text: "Buchstaben und Zahlen.", score: 2 },
-            { text: "Buchstaben, Zahlen und Symbole.", score: 3 }
+            { text: "Buchstaben, Zahlen und Symbole.", score: 0 }
         ],
         category: "passwords",
     },
@@ -327,49 +330,151 @@ const questions = [
     },
 ];
 
+document.addEventListener("DOMContentLoaded", function () {
+    const quizContainer = document.querySelector(".quiz-container");
+    const quiz = document.getElementById("quiz");
+    const progressBar = document.getElementById("progress-bar");
+    const results = document.getElementById("results");
+
+    // Check if the cookie exists to determine if intro has been viewed
+    const introSeen = getCookie("introSeen");
+
+    if (introSeen === "true") {
+        // Skip intro and show quiz immediately
+        if (window.innerWidth > 768) {
+            quizContainer.style.height = `530px`;
+        } 
+        quiz.style.display = "block";
+        progressBar.style.display = "block";
+        results.style.display = "none";
+        quiz.style.opacity = "1"; // Fade in Quiz
+        quiz.style.pointerEvents = "auto";
+        results.style.pointerEvents = "auto";
+        loadProgress();
+    } else if (window.innerWidth > 768) {
+        // Create the Intro HTML content if intro has not been seen
+        const introScreen = document.createElement("div");
+        introScreen.id = "quiz-intro";
+        introScreen.style.opacity = "1";
+        introScreen.style.transition = "opacity 0.5s ease-in-out";
+        introScreen.innerHTML = `
+            <div class="info-context">
+                <h1 class="info-header">STARTEN<br>SIE IHREN<br>CHECK&nbsp;&rarr;</h1>
+                <p class="header-p header-p--quiz2">
+                    Erfahren sie in unserem Quiz, wie sicher Sie im Internet unterwegs sind. <br> 
+                    Wir geben Ihnen Tipps, wie Sie Ihre Sicherheit im Netz verbessern können. <br>
+                    <strong>Der Risiko-Check dauert nicht länger als 3 Minuten.</strong>        
+                </p>
+            </div>
+        `;
+
+        // Insert the Intro before the quiz content
+        quizContainer.insertBefore(introScreen, quiz);
+        quizContainer.style.transition = "all 3s ease";
+        quizContainer.style.backgroundColor = "var(--yellow)";
+
+        // Hide Quiz Initially
+        quiz.style.opacity = "0";
+        quiz.style.display = "none";
+        quiz.style.transition = "opacity 0.3s ease";
+
+        // Adjust Quiz Container Initial Height
+        quizContainer.style.height = "30vw";
+        quizContainer.style.transition = "all 0.3s ease";
+        quizContainer.style.cursor = "pointer";
+
+        // Change border color on hover
+        quizContainer.addEventListener('mouseover', () => {
+            if (introScreen.style.opacity === "1") {
+                quizContainer.style.borderColor = "var(--footer)";
+            }
+        });
+
+        // Reset border color when mouse leaves
+        quizContainer.addEventListener('mouseleave', () => {
+            if (introScreen.style.opacity === "1") {
+                quizContainer.style.borderColor = ""; // Reset to original border color
+            }
+        });
+
+        // Start Button Event
+        introScreen.addEventListener("click", function () {
+            // Set the cookie to mark the intro as seen
+            setCookie("introSeen", "true", 365); // Set cookie for 1 year
+
+            // Fade out Intro
+            introScreen.style.opacity = "0";
+
+            setTimeout(() => {
+                introScreen.remove(); // Remove intro from DOM
+                if (window.innerWidth > 768) {
+                    quizContainer.style.height = `530px`;
+                } 
+                quizContainer.style.backgroundColor = "white";
+                quizContainer.style.border = "solid 2px var(--border2)";
+                quizContainer.style.cursor = "default";
+                setTimeout(() => {
+                    quiz.style.display = "block";
+                    progressBar.style.display = "block";
+                    results.style.display = "none";
+                    quiz.style.opacity = "1"; // Fade in Quiz
+                    quiz.style.pointerEvents = "auto";
+                    results.style.pointerEvents = "auto";
+                    restartQuiz(); // Start the quiz
+                }, 200);
+            }, 500);
+        });
+    }
+});
+
+
+// Reset the introSeen cookie on "R" key press
+window.addEventListener("keydown", function(event) {
+    if (event.key === "r" || event.key === "R") {
+        // Reset the cookie
+        setCookie("introSeen", "", -1); // Delete the cookie by setting it to an empty string and expiration date in the past
+        location.reload(); // Reload the page to see the intro again
+    }
+});
+
+
 // Define scoring functions first
 function calculateQuestionScore(question) {
     const answer = answers[question.id];
 
+    // Check if answer is undefined (not answered yet)
+    if (!answer) {
+        return 3; // Assign default score (or 0 if desired)
+    }
     let score;
     switch(question.type) {
         case 'button':
             score = answer.score;
-            // console.log(`Question ${question.id} (button): Score = ${score}`);
             break;
         case 'range':
             score = question.calculateScore(answer);
-            // console.log(`Question ${question.id} (range): Score = ${score}`);
             break;
         default:
             score = 3;
-            // console.log(`Question ${question.id} (unknown type): Default score = ${score}`);
     }
     return score;
 }
 
 function calculateTotalScore() {
-    // console.log("\n--- Calculating Total Score ---");
     
     const maxScorePerQuestion = 3;
     const totalPossibleScore = questions.length * maxScorePerQuestion;
-    // console.log(`Maximum possible score: ${totalPossibleScore} (${questions.length} questions * ${maxScorePerQuestion} max score)`);
     
     let totalScore = 0;
     questions.forEach(question => {
         const questionScore = calculateQuestionScore(question);
         totalScore += questionScore;
-        // console.log(`Question ${question.id}: Added ${questionScore} to total. New total: ${totalScore}`);
     });
     
-    // console.log(`Final raw score: ${totalScore} out of ${totalPossibleScore}`);
     
     // Convert to risk percentage (0 score = 5% risk, max score = 100% risk)
     const riskPercentage = 5 + ((totalScore / totalPossibleScore) * 95);
-    // console.log(`Risk calculation: 5 + ((${totalScore} / ${totalPossibleScore}) * 95) = ${riskPercentage}%`);
-    
     const roundedRisk = Math.round(riskPercentage);
-    // console.log(`Final rounded risk: ${roundedRisk}%`);
     
     return roundedRisk;
 }
@@ -422,6 +527,7 @@ function createButtonGroup(container, question) {
             
             answers[question.id] = option;
             document.getElementById('nextBtn').disabled = false;
+            document.getElementById('nextBtn-mobile').disabled = false;
             saveProgress();
         };
         
@@ -446,6 +552,7 @@ function createRadioGroup(container, question) {
         input.onchange = () => {
             answers[question.id] = option;
             document.getElementById('nextBtn').disabled = false;
+            document.getElementById('nextBtn-mobile').disabled = false;
             saveProgress();
         };
         
@@ -474,6 +581,8 @@ function updateQuestion() {
     
     const nextBtn = document.getElementById('nextBtn');
     nextBtn.disabled = true;
+    const nextBtnMobile = document.getElementById('nextBtn-mobile');
+    nextBtnMobile.disabled = true;
 
     switch(question.type) {
         case 'radio':
@@ -492,6 +601,11 @@ function updateQuestion() {
     const prevBtn = document.getElementById('prevBtn');
     if (prevBtn) {
         prevBtn.disabled = currentQuestion === 0;
+    }
+
+    const prevBtnMobil = document.getElementById('prevBtn-mobile');
+    if (prevBtnMobil) {
+        prevBtnMobil.disabled = currentQuestion === 0;
     }
     
     if (answers[question.id]) {
@@ -526,6 +640,7 @@ function loadSavedAnswer(question) {
             break;
     }
     document.getElementById('nextBtn').disabled = false;
+    document.getElementById('nextBtn-mobile').disabled = false;
 }
 
 function nextQuestion() {
@@ -533,7 +648,6 @@ function nextQuestion() {
         currentQuestion++;
         updateQuestion();
     } else {
-        console.log('Quiz completed!');
         showResults();
         
     }
@@ -547,9 +661,15 @@ function previousQuestion() {
 }
 
 function showResults() {
-    console.log('Showing results...');
     document.getElementById('quiz').style.display = 'none';
+    document.getElementById('quiz-nav-mobile').style.display = 'none';
     document.getElementById('results').style.display = 'block';
+    
+    const tips = document.getElementById('tips');
+    tips.style.display = 'block';  // Make the element visible
+    setTimeout(() => {
+        tips.style.opacity = 1;   // Fade in by changing opacity
+    }, 10);  // Small delay to trigger the transition effect
     
     const progressFill = document.querySelector('.quiz-progress-bar');
     if (progressFill) {
@@ -562,6 +682,10 @@ function showResults() {
         quizContainer.style.backgroundColor = 'var(--pink)';
         quizContainer.style.borderColor = 'var(--red)';
     }
+
+    if (window.innerWidth <= 768) {
+        document.getElementById('repeat-quiz-btn-mobile').style.display = 'flex';
+    }
     
     const riskScore = calculateTotalScore();
 
@@ -573,7 +697,6 @@ function showResults() {
     
     const title = document.querySelector('.score');
     if (title) {
-        console.log('Setting title...');
         title.innerHTML = `
                 <h1 class="info-header score-demo">IHR RISIKO <br>LIEGT BEI <br><span class="cta-highlight">${riskScore} PROZENT</span></h1>
         `;
@@ -584,72 +707,213 @@ function showResults() {
     // Determine the message based on the riskScore
     let message = '';
     
-    if (riskScore <= 15) {
-        // Very Low Risk (5% - 15%)
-        message = `
-            <p class="header-p score-text"><strong>Ihre Sicherheitsvorkehrungen sind sehr gut!</strong> Ein Risiko von nur <strong>${riskScore}%</strong> zeigt, <br>dass Sie einen soliden Schutz haben.
-            <strong>Weiter so!</strong> Achten Sie weiterhin darauf, <br>regelmäßige Updates durchzuführen und Sicherheitsrichtlinien zu überprüfen.</p>
-        `;
-    } else if (riskScore <= 35) {
-        // Medium Risk (16% - 50%)
-        message = `
-            <p class="header-p score-text"><strong>Ihre Sicherheitsvorkehrungen sind ein guter Start.</strong> Ein Risiko von <strong>${riskScore}%</strong> zeigt,<br> 
-            dass einige Maßnahmen noch fehlen, um Ihre Cyber-Hygiene zu optimieren.<br>
-            Wir empfehlen, <strong>zusätzliche Schutzmaßnahmen</strong> zu ergreifen.</p>
+    if (window.innerWidth > 768) {
+        if (riskScore <= 15) {
+            // Very Low Risk (5% - 15%)
+            message = `
+                <p class="header-p score-text"><strong>Ihre Sicherheitsvorkehrungen sind sehr gut!</strong> Ein Risiko von nur <strong>${riskScore}%</strong> zeigt, <br>dass Sie einen soliden Schutz haben.
+                <strong>Weiter so!</strong> Achten Sie weiterhin darauf, <br>regelmäßige Updates durchzuführen und Sicherheitsrichtlinien zu überprüfen.</p>
             `;
-    } else if (riskScore <= 75) {
-        // Medium-High Risk (51% - 75%)
-        message = `
-                    <p class="header-p score-text"><strong>Achtung, hohes Risiko!</strong> Ein Risiko von <strong>${riskScore}%</strong> zeigt, dass es an der Zeit ist, Ihre<br>
-                Sicherheitsvorkehrungen grundlegend zu überdenken und rechtzeitig zu handeln. <br> 
-                Die nächsten Schritte sollten darauf abzielen, Ihre <strong>Sicherheitsvorkehrungen</strong> auf ein <br>höheres Niveau <strong>zu heben</strong>, um <strong>ernsthafte Angriffsmöglichkeiten zu vermeiden.</strong></p>
-               `;
+        } else if (riskScore <= 35) {
+            // Medium Risk (16% - 50%)
+            message = `
+                <p class="header-p score-text"><strong>Ihre Sicherheitsvorkehrungen sind ein guter Start.</strong> Ein Risiko von <strong>${riskScore}%</strong> zeigt,<br> 
+                dass einige Maßnahmen noch fehlen, um Ihre Cyber-Hygiene zu optimieren.<br>
+                Wir empfehlen, <strong>zusätzliche Schutzmaßnahmen</strong> zu ergreifen.</p>
+                `;
+        } else if (riskScore <= 75) {
+            // Medium-High Risk (51% - 75%)
+            message = `
+                        <p class="header-p score-text"><strong>Achtung, hohes Risiko!</strong> Ein Risiko von <strong>${riskScore}%</strong> zeigt, dass es an der Zeit ist, Ihre<br>
+                    Sicherheitsvorkehrungen grundlegend zu überdenken und rechtzeitig zu handeln. <br> 
+                    Die nächsten Schritte sollten darauf abzielen, Ihre <strong>Sicherheitsvorkehrungen</strong> auf ein <br>höheres Niveau <strong>zu heben</strong>, um <strong>ernsthafte Angriffsmöglichkeiten zu vermeiden.</strong></p>
+                   `;
+        } else {
+            // High Risk (76% - 100%)
+            message = `
+                    <p class="header-p score-text"><strong>Achtung, sehr hohes Risiko!</strong> Ein Risiko von <strong>${riskScore}%</strong> zeigt, dass <strong>dringend<br>
+                        wichtige Verbesserungen</strong> bei Ihren Sicherheitsvorkehrungen erforderlich sind. <br> 
+                        Wir empfehlen Ihnen, <strong>sofort die untenstehenden Maßnahmen</strong> zu ergreifen!</p>   
+            `;
+        }
     } else {
-        // High Risk (76% - 100%)
-        message = `
-                <p class="header-p score-text"><strong>Achtung, sehr hohes Risiko!</strong> Ein Risiko von <strong>${riskScore}%</strong> zeigt, dass <strong>dringend<br>
-                    wichtige Verbesserungen</strong> bei Ihren Sicherheitsvorkehrungen erforderlich sind. <br> 
-                    Wir empfehlen Ihnen, <strong>sofort die untenstehenden Maßnahmen</strong> zu ergreifen!</p>   
-        `;
+        if (riskScore <= 15) {
+            // Very Low Risk (5% - 15%)
+            message = `
+                <p class="header-p score-text"><strong>Ihre Sicherheitsvorkehrungen sind sehr gut!</strong> Ein Risiko von nur <strong>${riskScore}%</strong> zeigt, dass Sie einen soliden Schutz haben. <strong>Weiter so!</strong> Achten Sie weiterhin darauf, regelmäßige Updates durchzuführen und Sicherheitsrichtlinien zu überprüfen.</p>
+            `;
+        } else if (riskScore <= 35) {
+            // Medium Risk (16% - 50%)
+            message = `
+                <p class="header-p score-text"><strong>Ihre Sicherheitsvorkehrungen sind ein guter Start.</strong> Ein Risiko von <strong>${riskScore}%</strong> zeigt, dass einige Maßnahmen noch fehlen, um Ihre Cyber-Hygiene zu optimieren. Wir empfehlen, <strong>zusätzliche Schutzmaßnahmen</strong> zu ergreifen.</p>
+            `;
+        } else if (riskScore <= 75) {
+            // Medium-High Risk (51% - 75%)
+            message = `
+                <p class="header-p score-text"><strong>Achtung, hohes Risiko!</strong> Ein Risiko von <strong>${riskScore}%</strong> zeigt, dass es an der Zeit ist, Ihre Sicherheitsvorkehrungen grundlegend zu überdenken und rechtzeitig zu handeln. Die nächsten Schritte sollten darauf abzielen, Ihre <strong>Sicherheitsvorkehrungen</strong> auf ein höheres Niveau <strong>zu heben</strong>, um <strong>ernsthafte Angriffsmöglichkeiten zu vermeiden.</strong></p>
+            `;
+        } else {
+            // High Risk (76% - 100%)
+            message = `
+                <p class="header-p score-text"><strong>Achtung, sehr hohes Risiko!</strong> Ein Risiko von <strong>${riskScore}%</strong> zeigt, dass <strong>dringend wichtige Verbesserungen</strong> bei Ihren Sicherheitsvorkehrungen erforderlich sind. Wir empfehlen Ihnen, <strong>sofort die untenstehenden Maßnahmen</strong> zu ergreifen!</p>
+            `;
+        }        
     }
+
+
     
     // Insert the determined message into the recommendations div
     recommendationsDiv.innerHTML = message;
     
+        // After setting the risk score and message, add security tips
+        const highRiskAreas = analyzeHighRiskAnswers();
+        const tipsContainer = document.getElementById('tips');
+        
+        if (tipsContainer) {
+            let tipsHTML = ''; // Start with an empty string
+        
+            if (highRiskAreas.length > 0) {
+                tipsHTML += `
+                    <div class="tips-div">
+                        <p class="topic-above-header">Risiko-Check</p>
+                        <h2 class="topic-header">Ihre größten Risiken:</h2>
+                `;
+        
+                highRiskAreas.forEach(area => {
+                    const categoryTips = securityTips[area.category];
+                    if (categoryTips) {
+                        tipsHTML += `
+                            <h3 class="topic-text-side active always-expanded">${categoryTips.title}</h3>
+                            <ul class="topic-text risiko-check-tip">
+                                ${categoryTips.tips.map(tip => `<li>${tip}</li>`).join('')}
+                            </ul>
+                        `;
+                    }
+                });
+        
+                tipsHTML += `</div>`; // Close the tips-div
+            }
+            
+            tipsContainer.innerHTML = tipsHTML;
+        }
 }
 
+// Modify restartQuiz to clear all saved progress
 function restartQuiz() {
+
+    if (window.innerWidth <= 768) {
+        document.getElementById('repeat-quiz-btn-mobile').style.display = 'none';
+    }
+    // Clear all quiz-related cookies
+    document.cookie = 'quizAnswers=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    document.cookie = 'currentQuestion=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    document.cookie = 'quizState=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+
+    // Reset quiz state
     currentQuestion = 0;
     answers = {};
-    document.cookie = 'quizAnswers=; Max-Age=-99999999;';
-    document.cookie = 'currentQuestion=; Max-Age=-99999999;';
+
+    // Reset UI
     document.getElementById('results').style.display = 'none';
+    document.getElementById('tips').style.display = 'none';
     document.getElementById('quiz').style.display = 'block';
+    if (window.innerWidth <= 768) {
+        document.getElementById('quiz-nav-mobile').style.display = 'flex';
+    }
+    
     const quizContainer = document.querySelector('.quiz-container');
     if (quizContainer) {
-        quizContainer.style.height = `530px`;
+        if (window.innerWidth > 768) {
+            quizContainer.style.height = `530px`;
+        }
+
         quizContainer.style.backgroundColor = 'white';
         quizContainer.style.borderColor = 'var(--border2)';
     }
+
+    const progressFill = document.querySelector('.quiz-progress-bar');
+    if (progressFill) {
+        progressFill.style.display = 'block';
+    }
+
     updateQuestion();
 }
 
 function saveProgress() {
+    // Save answers
     setCookie('quizAnswers', answers, 7);
+    
+    // Save current question
     setCookie('currentQuestion', currentQuestion, 7);
+    
+    // Save the quiz state (completed or in progress)
+    setCookie('quizState', {
+        isCompleted: document.getElementById('results').style.display === 'block',
+        riskScore: calculateTotalScore() // Optional: save risk score if already calculated
+    }, 7);
 }
 
+// Enhance loadProgress function
 function loadProgress() {
     const savedAnswers = getCookie('quizAnswers');
     const savedQuestion = getCookie('currentQuestion');
-    if (savedAnswers) answers = savedAnswers;
-    if (savedQuestion !== null) currentQuestion = savedQuestion;
+    const savedQuizState = getCookie('quizState');
+
+    // Restore answers
+    if (savedAnswers) {
+        answers = savedAnswers;
+    }
+
+    // Restore current question
+    if (savedQuestion !== null) {
+        currentQuestion = savedQuestion;
+    }
+
+    // Restore quiz state
+    if (savedQuizState) {
+        if (savedQuizState.isCompleted) {
+            showResults();
+        } else {
+            // If quiz was in progress, update the question
+            document.getElementById('quiz').style.display = 'block';
+            document.getElementById('results').style.display = 'none';
+        }
+    }
+
+    // Update the question display
     updateQuestion();
 }
 
-// Add the event listeners at the end
+// Modify the existing event listeners to call saveProgress
 document.addEventListener('DOMContentLoaded', function() {
-    updateQuestion();
+    // First, try to load any existing progress
+    loadProgress();
+
+    // Set up event listeners to save progress on each interaction
+    const answerButtons = document.querySelectorAll('.answer-button');
+    answerButtons.forEach(button => {
+        button.addEventListener('click', saveProgress);
+    });
+
+    const nextButton = document.getElementById('nextBtn');
+    if (nextButton) {
+        nextButton.addEventListener('click', saveProgress);
+    }
+
+    const nextButtonMobile = document.getElementById('nextBtn-mobile');
+    if (nextButtonMobile) {
+        nextButtonMobile.addEventListener('click', saveProgress);
+    }
+
+    const prevButton = document.getElementById('prevBtn');
+    if (prevButton) {
+        prevButton.addEventListener('click', saveProgress);
+    }
+
+    const prevButtonMobile = document.getElementById('prevBtn-mobile');
+    if (prevButtonMobile) {
+        prevButtonMobile.addEventListener('click', saveProgress);
+    }
 });
 
 document.addEventListener('keydown', (e) => {
@@ -672,8 +936,114 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
+// First, let's define tips for each category
+const securityTips = {
+    passwords: {
+        title: "Passwort-Sicherheit",
+        tips: [
+            "Nutzen Sie einen Passwort-Manager",
+            "Erstellen Sie für jeden Account ein einzigartiges Passwort",
+            "Nutzen Sie zufällige Passwörter mit mindestens 12 Zeichen",
+            "Kombinieren Sie Groß- und Kleinbuchstaben, Zahlen und Sonderzeichen"
+        ]
+    },
+    updates: {
+        title: "Software-Updates",
+        tips: [
+            "Aktivieren Sie automatische Updates für Ihr Betriebssystem",
+            "Halten Sie alle ihre Programme und Apps auf dem neuesten Stand",
+            "Überprüfen Sie regelmäßig auf verfügbare Updates",
+            "Deinstallieren Sie Software, die Sie nicht mehr nutzen"
+        ]
+    },
+    mfa: {
+        title: "Zwei-Faktor-Authentifizierung",
+        tips: [
+            "Aktivieren Sie 2FA für alle Konten",
+            "Nutzen Sie eine Authenticator-App",
+            "Vermeiden Sie die Verwendung von SMS als zweiten Faktor"
+        ]
+    },
+    admin: {
+        title: "Administratorrechte",
+        tips: [
+            "Erstellen Sie einen separaten Account für ihren täglichen Gebrauch",
+            "Nutzen Sie den Admin-Account nur für systemrelevante Änderungen",
+            "Vergeben Sie starke, unterschiedliche Passwörter für beide dieser Konten",
+        ]
+    },
+    socialmedia: {
+        title: "Social Media Sicherheit",
+        tips: [
+            "Überprüfen Sie Ihre Privatsphäre-Einstellungen regelmäßig",
+            "Teilen Sie keine sensiblen persönlichen Informationen",
+            "Seien Sie Kontaktanfragen von Unbekannten gegenüber misstrauisch",
+        ]
+    },
+    publicwifi: {
+        title: "Öffentliche WLAN-Netzwerke",
+        tips: [
+            "Benutzen Sie immer ein VPN",
+            "Vermeiden Sie sensible Aktivitäten wie Online-Banking oder E-Mails",
+            "Deaktivieren Sie automatische WLAN-Verbindungen",
+            "Stellen Sie sicher, dass Sie sich mit dem korrekten Netzwerk verbinden"
+        ]
+    }
+};
+
+// Function to analyze high-risk answers
+function analyzeHighRiskAnswers() {
+    const highRiskCategories = new Map();
+    
+    let totalRiskScore = 0;
+    let totalPossibleScore = 0;
+    
+    const maxScore = 3; // Maximale Punktzahl pro Frage
+
+    // Analysiere jede Antwort
+    questions.forEach(question => {
+        const answer = answers[question.id];
+        if (answer && answer.score >= 2) { // Nur riskante Antworten berücksichtigen
+            const category = question.category;
+            
+            // Gesamt-Risikoscore berechnen
+            totalRiskScore += answer.score;
+            totalPossibleScore += maxScore;
+
+            // Kategorie-bezogene Risikodaten speichern
+            if (!highRiskCategories.has(category)) {
+                highRiskCategories.set(category, {
+                    score: answer.score,
+                    count: 1
+                });
+            } else {
+                const current = highRiskCategories.get(category);
+                highRiskCategories.set(category, {
+                    score: current.score + answer.score,
+                    count: current.count + 1
+                });
+            }
+        }
+    });
+
+    // Berechne den Gesamtrisikoscore in Prozent
+    const overallRiskPercentage = totalPossibleScore > 0 ? (totalRiskScore / totalPossibleScore) * 100 : 0;
+
+    // Kategorien nach Risikowert sortieren
+    const sortedCategories = Array.from(highRiskCategories.entries())
+        .map(([category, data]) => ({
+            category,
+            averageScore: data.score / data.count
+        }))
+        .sort((a, b) => b.averageScore - a.averageScore);
+
+    // Falls der Gesamtrisikoscore ≥ 75 %, alle Kategorien zurückgeben
+    return overallRiskPercentage >= 75 ? sortedCategories : sortedCategories.slice(0, 3);
+}
 
 
+// Ensure progress is saved before leaving the page
+window.addEventListener('beforeunload', saveProgress);
 
 
 
@@ -761,3 +1131,17 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute("href"));
+            if (target) {
+                target.scrollIntoView({ behavior: "smooth" });
+            }
+        });
+    });
+});
+
+
