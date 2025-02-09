@@ -1089,4 +1089,16 @@ header {
   }
 
 
+  .info-section--quiz2 {
+
+    width: 90%;
+    background-color: rgb(255, 255, 255);
+    border-color: rgb(242, 236, 236);
+    margin: 0;
+    padding: 20px;
+    margin: 0 auto;
+    margin-top: var(--startHeight);
+    margin-bottom: 30vh;
+}
+
 
