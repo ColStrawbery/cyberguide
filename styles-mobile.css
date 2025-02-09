@@ -742,6 +742,25 @@ header {
     text-align: left;
 }
 
+.skala {
+    background-color: var(--offWhite);
+    border: 1px solid var(--border2);
+    height: 20px;
+    width: calc(100% - 5px);
+    border-radius: 5px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    border-color: var(--red);
+    background-color: var(--pink);
+  }
+  
+  .skala-fill {
+    width: 5%;
+    opacity: 5%;
+    background-color: var(--red);
+    height: 100%;
+  }
+
 .info-container {
     user-select: none;
     width: 100%;
@@ -924,7 +943,7 @@ header {
   }
 
   .risiko-check-tip li {
-    margin-bottom: 1vh;
+    margin-bottom: 0.5vh;
   }
 
   .faq-section {
